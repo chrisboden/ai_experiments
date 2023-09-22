@@ -104,6 +104,33 @@ SUMMARY: """
 
     return prompt
 
+def linkedin_generator(word_count:int=1000, target_audience:str='all'):
+
+    prompt_text = f"""
+Generate a concise and coherent Linkedin post from the given Context. 
+
+Condense the context into a well-written summary that captures the main ideas, key points, and insights as written from the perspective of someone who was in the audience watching the presentation. 
+
+Prioritize clarity and brevity while retaining the essential information. 
+
+Aim to convey the context's core message and any supporting details that contribute to a comprehensive understanding. 
+
+Craft the summary to be self-contained, ensuring that readers can grasp the content even if they haven't read the context. 
+
+Provide context where necessary and avoid excessive technical jargon or verbosity.
+
+The goal is to create a summary that effectively communicates the context's content while being easily digestible and engaging."
+
+Keep the summary under {word_count} words for {target_audience} audience.
+
+CONTEXT: {{text}}
+
+SUMMARY: """
+
+    prompt = ChatPromptTemplate.from_template(template=prompt_text)
+
+    return prompt
+
 
 def unit_tests_generator(language):
 

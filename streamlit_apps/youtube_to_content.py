@@ -16,7 +16,7 @@ from dotenv import load_dotenv
 load_dotenv()
 
 def generate_content(openai_api_key, text, content ,thread:bool=False):
-    model = ChatOpenAI(openai_api_key=openai_api_key, model="gpt-3.5-turbo-16k", temperature=0.5)
+    model = ChatOpenAI(openai_api_key=openai_api_key, model="gpt-4", temperature=0.5)
    
 
     if content == "Summary":
@@ -27,6 +27,8 @@ def generate_content(openai_api_key, text, content ,thread:bool=False):
         prompt = tweet_generator(thread=thread)
     elif content == "Newsletter":
         prompt = newsletter_generator()
+    elif content == "Linkedin":
+        prompt = linkedin_generator()
     
     chain = prompt | model | StrOutputParser()
 
@@ -46,7 +48,8 @@ def main():
     tweet = st.sidebar.checkbox("Tweet")
     if tweet:
         thread = st.sidebar.checkbox("TweetThread")
-    newsletter = st.sidebar.checkbox("Newsletter")        
+    newsletter = st.sidebar.checkbox("Newsletter")
+    linkedin = st.sidebar.checkbox("LinkedIn")        
 
     if openai_api_key and yt_url:
         if st.button("Submit"):
@@ -88,7 +91,11 @@ def main():
             with col2:
                 if newsletter:
                     st.subheader("Newsletter:")
-                    st.write(newsletter_answer)                      
+                    st.write(newsletter_answer)
+            with col2:
+                if linkedin:
+                    st.subheader("LinkedIn:")
+                    st.write(linkedin_answer)                     
     
         # Clear API Key
         openai_api_key = ""

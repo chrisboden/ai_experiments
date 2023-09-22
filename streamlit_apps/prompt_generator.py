@@ -13,7 +13,7 @@ from dotenv import load_dotenv
 load_dotenv()
 
 def main_expression(openai_api_key, text, instructions, gpt_answer, prompt_key):
-    model = ChatOpenAI(openai_api_key=openai_api_key, model="gpt-3.5-turbo-16k", temperature=0.5)
+    model = ChatOpenAI(openai_api_key=openai_api_key, model="gpt-4", temperature=0.5)
    
     if instructions:
         special_instructions = f"SpecialInstructions: {instructions}"

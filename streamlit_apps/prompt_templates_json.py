@@ -150,6 +150,29 @@ Example:
 {footer}
 """
 
+linkedin_template = f"""
+
+{generate_header(task="Writing Linkedin Post")}
+
+Here's an example of a great prompt:
+
+As a masterful LinkedIn content creator, develop an engaging blog post that revolves around the theme of "Exploring Ancient Ruins."
+
+Your script should encompass exciting discoveries, historical insights, and a sense of adventure.
+
+Include a mix of on-screen narration, engaging visuals, and possibly interactions with co-hosts or experts.
+
+The script should ideally result in a video of around 10-15 minutes, providing viewers with a captivating journey through the secrets of the past.
+
+Example:
+
+"Welcome back, fellow history enthusiasts, to our channel! Today, we embark on a thrilling expedition..."
+
+-----
+
+{footer}
+"""
+
 PROMPTS = {
     # "generate_plan_prompt": PromptTemplate(template=generate_plan_template, input_variables=["text"])
     "Plan Generator": ChatPromptTemplate.from_template(template=generate_plan_template),
