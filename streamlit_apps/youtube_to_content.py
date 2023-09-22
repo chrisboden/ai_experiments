@@ -17,7 +17,6 @@ load_dotenv()
 
 def generate_content(openai_api_key, text, content ,thread:bool=False):
     model = ChatOpenAI(openai_api_key=openai_api_key, model="gpt-4", temperature=0.5)
-   
 
     if content == "Summary":
         prompt = summary_generator()
@@ -29,7 +28,7 @@ def generate_content(openai_api_key, text, content ,thread:bool=False):
         prompt = newsletter_generator()
     elif content == "Linkedin":
         prompt = linkedin_generator()
-    
+
     chain = prompt | model | StrOutputParser()
 
     answer = chain.invoke({"text":text})
@@ -49,29 +48,23 @@ def main():
     if tweet:
         thread = st.sidebar.checkbox("TweetThread")
     newsletter = st.sidebar.checkbox("Newsletter")
-    linkedin = st.sidebar.checkbox("LinkedIn")        
+    linkedin = st.sidebar.checkbox("LinkedIn")
 
     if openai_api_key and yt_url:
         if st.button("Submit"):
-            # Load Transcript
             loader = YoutubeLoader.from_youtube_url(yt_url, language=["en", "en-US"])
             transcript = loader.load()
 
-            tasks = []
-            if summary or tweet:
-                
-                if summary:
-                    summary_answer = generate_content(openai_api_key=openai_api_key, text=transcript, content="Summary")
-                if tweet:
-                    tweet_answer = generate_content(openai_api_key=openai_api_key, text=transcript, content="Tweet", thread=thread)
-                
-           
-            if blog or newsletter:
-
-                if blog:
-                    blog_answer = generate_content(openai_api_key=openai_api_key, text=transcript, content="Blog")
-                if newsletter:
-                    newsletter_answer = generate_content(openai_api_key=openai_api_key, text=transcript, content="Newsletter")
+            if summary:
+                summary_answer = generate_content(openai_api_key=openai_api_key, text=transcript, content="Summary")
+            if tweet:
+                tweet_answer = generate_content(openai_api_key=openai_api_key, text=transcript, content="Tweet", thread=thread)
+            if blog:
+                blog_answer = generate_content(openai_api_key=openai_api_key, text=transcript, content="Blog")
+            if newsletter:
+                newsletter_answer = generate_content(openai_api_key=openai_api_key, text=transcript, content="Newsletter")
+            if linkedin:
+                linkedin_answer = generate_content(openai_api_key=openai_api_key, text=transcript, content="Linkedin")
 
             col1, col2 = st.columns(2)
             with col1:
@@ -81,9 +74,9 @@ def main():
             with col2:
                 if tweet:
                     st.subheader("Tweet:")
-                    st.write(tweet_answer)   
-            
-            col1, col2 = st.columns(2)                    
+                    st.write(tweet_answer)
+
+            col1, col2 = st.columns(2)
             with col1:
                 if blog:
                     st.subheader("Blog:")
@@ -95,13 +88,11 @@ def main():
             with col2:
                 if linkedin:
                     st.subheader("LinkedIn:")
-                    st.write(linkedin_answer)                     
-    
-        # Clear API Key
+                    st.write(linkedin_answer)
+
         openai_api_key = ""
     else:
         st.warning("Please populate both the OpenAI API Key and the Lazy Prompt.")
-
 
 if __name__ == "__main__":
     main()

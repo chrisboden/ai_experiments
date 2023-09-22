@@ -179,5 +179,6 @@ PROMPTS = {
     "Story Telling": ChatPromptTemplate.from_template(template=storywriting_template),  
     "Blog Writing": ChatPromptTemplate.from_template(template=blogwriting_template),
     "Twitter Post": ChatPromptTemplate.from_template(template=twitterpost_template),
-    "YouTube Script": ChatPromptTemplate.from_template(template=youtubescript_template)            
+    "YouTube Script": ChatPromptTemplate.from_template(template=youtubescript_template), 
+    "LinkedIn Post": ChatPromptTemplate.from_template(template=linkedin_template)            
 }
